@@ -1,5 +1,4 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: type=lint
 
 part of 'stroke.dart';
 
@@ -18,8 +17,8 @@ class StrokeAdapter extends TypeAdapter<Stroke> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Stroke(
-      points: (fields[0] as List).cast<Offset>(),
-      color: Color(fields[1] as int),
+      points: (fields[0] as List).cast<Offsetcustom>(),
+      color: fields[1] as int,
       brushsize: fields[2] as double,
     );
   }

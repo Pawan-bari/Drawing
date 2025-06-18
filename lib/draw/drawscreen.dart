@@ -1,5 +1,6 @@
 import 'package:drawingui/draw/model/stroke.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
 
 class Drawscreen extends StatefulWidget {
   const Drawscreen({super.key});
@@ -14,12 +15,78 @@ class _DrawscreenState extends State<Drawscreen> {
   List<Offset> _currentPoints =[];
   Color _selectedcolor = Colors.black;
   double _brushsize = 4.0;  
+  late Box<List<Stroke>> _drawingbox;
+
+String? _drawingname;
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _initializeHive();
+    },);
+    
+    super.initState();
+  }
+
+_initializeHive() async
+{
+
+_drawingbox = Hive.box<List<Stroke>>('drawing');
+
+final name = ModalRoute.of(context)?.settings.arguments as String?;
+if(name != null){
+  final rawdata = _drawingbox.get(name);
+  setState(() {
+    _drawingname = name;
+    _strokes = (rawdata as List<dynamic>?)?.cast<Stroke>() ?? [];
+  });
+}
+}
+
+Future<void>_saveDrawing(String name)async {
+await _drawingbox.put(name, _strokes);
+ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Drawing $name save')));
+}
+
+
+
+void _showsavedialog(){
+  final TextEditingController _controller = TextEditingController();
+  showDialog(context: context, builder: (context){
+    return AlertDialog(
+      title: const Text('Save Drawing'),
+      content: TextField(controller: _controller,
+      decoration: const InputDecoration(hintText: 'enter drawing name'),),
+      actions: [
+        TextButton(onPressed: (){
+          Navigator.of(context).pop();
+        }, child: Text('cancel'))
+ ,       TextButton(onPressed: (){
+  final name = _controller.text.trim();
+  if(name.isNotEmpty){
+    setState(() {
+      _drawingname = name;
+    });
+    _saveDrawing(name);
+    Navigator.of(context).pop();
+  }
+ }, child: Text('save'))
+      ],
+    );
+  });
+}
+
+@override
+void dispose() { 
+  
+  super.dispose();
+  
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Draw your Drawing',style: TextStyle(
+        title: Text(_drawingname ??'Draw your Drawing',style: TextStyle(
           color: Colors.white,
           fontSize: 24,
           fontWeight: FontWeight.bold,
@@ -49,7 +116,7 @@ class _DrawscreenState extends State<Drawscreen> {
               onPanEnd: (details){
                 setState(() {
                   _strokes.add(
-                  Stroke(points: List.from(_currentPoints),
+                  Stroke.fromOffset(points: List.from(_currentPoints),
                    color: _selectedcolor, 
                    brushsize: _brushsize
                    ),
@@ -75,7 +142,9 @@ class _DrawscreenState extends State<Drawscreen> {
          _buildtoolbar()
         ],
       ),
+      floatingActionButton: FloatingActionButton(onPressed:  _showsavedialog 
 
+      , child: Icon(Icons.save)),
     );
   }
 
