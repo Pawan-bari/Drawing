@@ -71,14 +71,42 @@ class _DrawscreenState extends State<Drawscreen> {
                 size: Size.infinite,
               ),
             ),
-          )
+          ),
+         _buildtoolbar()
         ],
       ),
 
     );
   }
-}
 
+
+  Widget _buildtoolbar(){
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16 ,vertical: 8),
+      color: Colors.grey,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          IconButton(onPressed: _strokes.isNotEmpty ? (){
+            setState(() {
+              _redostrokes.add(_strokes.removeLast());
+            });
+          }:null,
+           icon: const Icon(Icons.undo)
+           ),
+
+        IconButton(onPressed: _strokes.isNotEmpty ? (){
+            setState(() {
+              _strokes.add(_redostrokes.removeLast());
+            });
+          }:null,
+           icon: const Icon(Icons.redo)
+           )
+        ],
+      ),
+    );
+  }
+}
 class DrawPainter extends CustomPainter {
   
 final List<Stroke> strokes;
