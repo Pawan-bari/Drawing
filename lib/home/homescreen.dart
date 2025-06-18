@@ -39,6 +39,7 @@ class _HomescreenState extends State<Homescreen> {
               borderRadius: BorderRadius.circular(10),
                
             ), 
+          animationDuration: Duration(seconds: 0),
           
           elevation: 10), 
         ), 
