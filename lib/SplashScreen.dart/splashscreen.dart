@@ -19,7 +19,7 @@ class _SplashscreenState extends State<Splashscreen> with SingleTickerProviderSt
   void initState() { 
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 2));
+      duration: const Duration(seconds: 5));
       _fadeAnimation = Tween<double>(begin: 0 , end: 1 ).animate(_controller);
       _controller.forward();
 
