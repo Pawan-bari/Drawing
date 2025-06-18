@@ -1,16 +1,44 @@
-# drawingui
+# Drawing App - Flutter
+## 🎨 Overview
+A beautiful and responsive drawing application built with Flutter that allows users to create digital artwork with various tools and features.
 
-A new Flutter project.
+## ✨ Features
+Drawing Tools: Smooth drawing experience with customizable brush
 
-## Getting Started
+Brush Size: Adjustable brush thickness
 
-This project is a starting point for a Flutter application.
+Color Palette: Wide range of colors to choose from
 
-A few resources to get you started if this is your first Flutter project:
+Undo/Redo: Full history support for your drawing actions
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Grid View: Toggleable grid for better alignment
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Clear Canvas: Reset your drawing with one click
+
+Responsive Design: Works on both mobile and tablet devices
+
+## 📱 Screenshots
+<p align="center">
+    <img src="https://github.com/user-attachments/assets/72766dba-06c2-4bcd-b867-57a438b0488d" width="250" />
+
+  <img src="https://github.com/user-attachments/assets/470e736e-9f4b-47ef-a573-dd22f72f24a7" width="250" />
+
+ 
+<img src="https://github.com/user-attachments/assets/d2a98873-a741-4bd5-9956-ee0573578930" width="250" />
+  <img src="https://github.com/user-attachments/assets/c96808e8-4980-4571-89cf-7a7085548bec" width="250" />
+  <img src="https://github.com/user-attachments/assets/2725a378-09e5-4d14-bbda-fd55da4a4c5e" width="250" />
+    <img src="https://github.com/user-attachments/assets/72766dba-06c2-4bcd-b867-57a438b0488d" width="250" />
+ 
+
+  
+</p>
+
+## 🚀 Getting Started
+Prerequisites
+Flutter SDK (version 3.0.0 or higher)
+
+Dart (version 2.17.0 or higher)
+
+Android Studio/VSCode with Flutter plugin
+
+Hive 2.5.1
