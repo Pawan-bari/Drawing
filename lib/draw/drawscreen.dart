@@ -203,13 +203,14 @@ final double currentbrushsize;
   void paint(Canvas canvas, Size size) {
     for(final stroke in strokes){
       final paint = Paint()
-      ..color=stroke.color
+      ..color=stroke.strokeColor
       ..strokeCap=StrokeCap.round
       ..strokeWidth=stroke.brushsize;
 
+      final points =stroke.offsetPoints;
       for(int i =0; i<stroke.points.length-1;i++){
-        if(stroke.points[i] != Offset.zero && stroke.points[i+1] != Offset.zero){
-          canvas.drawLine(stroke.points[i], stroke.points[i+1], paint);
+        if(points[i] != Offset.zero && points[i+1] != Offset.zero){
+          canvas.drawLine(points[i], points[i+1], paint);
         }
       }
     }
