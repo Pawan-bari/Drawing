@@ -83,7 +83,8 @@ class _DrawscreenState extends State<Drawscreen> {
   Widget _buildtoolbar(){
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16 ,vertical: 8),
-      color: Colors.grey,
+      color: Colors.blue[200],
+      
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -95,17 +96,95 @@ class _DrawscreenState extends State<Drawscreen> {
            icon: const Icon(Icons.undo)
            ),
 
-        IconButton(onPressed: _strokes.isNotEmpty ? (){
+        IconButton(onPressed: _redostrokes.isNotEmpty ? (){
             setState(() {
               _strokes.add(_redostrokes.removeLast());
             });
           }:null,
            icon: const Icon(Icons.redo)
-           )
+           ),
+           DropdownButton(
+            value: _brushsize,
+            items: [
+              DropdownMenuItem(
+                value: 2.0,
+                child: Icon(Icons.circle,size: 6,)),
+                DropdownMenuItem(
+                value: 4.0,
+                child:Icon(Icons.circle,size: 12,)),
+                DropdownMenuItem(
+                value: 8.0,
+                child: Icon(Icons.circle,size: 16,)),
+                DropdownMenuItem(
+                value: 16.0,
+                child: Icon(Icons.circle,))
+            ],
+            onChanged: (value){
+              setState(() {
+                _brushsize = value!;
+              });
+            }),
+            Expanded(child: _buildcolorsellector())
         ],
       ),
     );
   }
+Widget _buildcolorsellector() {
+  final List<Color> colors = [
+    Colors.black,
+    Colors.red,
+    Colors.green,
+    Colors.blue,
+    Colors.orange,
+    Colors.purple,
+    Colors.brown,
+    Colors.pink,
+    Colors.teal,
+    Colors.yellow,
+    Colors.cyan,
+    Colors.lime,
+    Colors.indigo,
+    Colors.amber,
+    Colors.grey,
+  ];
+
+  return SingleChildScrollView(
+    scrollDirection: Axis.horizontal,
+    padding: const EdgeInsets.symmetric(horizontal: 12),
+    child: Row(
+      children: colors.map((color) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 4),
+        child: _buildcolorpallet(color),
+      )).toList(),
+    ),
+  );
+}
+
+Widget _buildcolorpallet(Color color){
+
+return GestureDetector(
+onTap: () {
+  setState(() {
+    _selectedcolor = color;
+  });
+},
+child: Container( 
+margin: const EdgeInsets.symmetric(horizontal: 4),
+width: 24,
+height: 24,
+decoration: BoxDecoration(
+  color: color,
+  shape: BoxShape.circle,
+  border: Border.all(
+    color: _selectedcolor == color ? Colors.grey : Colors.transparent,
+    width: 2
+  )
+),
+)
+);
+
+
+}
 }
 class DrawPainter extends CustomPainter {
   
